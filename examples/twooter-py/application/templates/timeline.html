@@ -1,0 +1,14 @@
+$def with (twoots)
+<html>
+  <body>
+	<h1>Twooter</h1>
+	<p><em>Proudly accepting venture capital since 2015.</em></p>
+	<p><a href="/t/new">Post a Twoot</a></p>
+    <h1>Twootline:</h1>
+    $for t in twoots:
+        <div>
+          <p>$t.text</p>
+          <p><a href="/t/$t.id">Twooted at $disp(t.time)</a></p>
+        </div>
+  </body>
+</html>

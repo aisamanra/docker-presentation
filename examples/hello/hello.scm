@@ -1,0 +1,20 @@
+(define (main)
+  (let ((s (socket PF_INET SOCK_STREAM 0)))
+    (setsockopt s SOL_SOCKET SO_REUSEADDR 1)
+    (bind s AF_INET INADDR_ANY 9999)
+    (listen s 0)
+    (sigaction SIGINT
+       (lambda (_)
+         (display "cleaning up...\n")
+         (close-port s)
+         (exit 0)))
+    (go s)))
+
+(define (go s)
+  (let ((conn (car (accept s))))
+    (send conn "Hello, friend!\n")
+    (close-port conn)
+    (display "Done!\n")
+    (go s)))
+
+(main)
